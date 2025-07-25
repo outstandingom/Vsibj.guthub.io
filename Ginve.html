@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TileMart - Premium Tiles & Sanitary Solutions</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+      /* General Styles */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--dark-color);
+    padding-top: 56px;
+}
+
+/* Navigation */
+.navbar {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+}
+
+/* Hover Effects */
+.hover-effect {
+    transition: all 0.3s ease;
+}
+
+.hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.category-card:hover {
+    border-color: var(--primary-color) !important;
+}
+
+/* Product Card */
+.product-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.badge-new {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--danger-color);
+}
+
+.badge-discount {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--success-color);
+}
+
+.product-actions {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.product-card:hover .product-actions {
+    bottom: 0;
+}
+
+.action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Color Options */
+.color-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.color-option:hover, .color-option.active {
+    border-color: var(--dark-color);
+}
+
+/* Size Options */
+.size-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid var(--secondary-color);
+    transition: all 0.3s ease;
+}
+
+.size-option:hover, .size-option.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Animations */
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 60px 0;
+        text-align: center;
+    }
+    
+    .hero-section img {
+        margin-top: 30px;
+    }
+    
+    .product-actions {
+        bottom: 0;
+        opacity: 1;
+    }
+}
+
+/* Quantity Input */
+.input-group .btn {
+    width: 40px;
+}
+
+/* Footer */
+footer a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--primary-color) !important;
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-tile me-2"></i>TileMart
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tiles">Tiles</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sanitary">Sanitary</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#bathroom">Bathroom Solutions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                </ul>
+                <div class="d-flex">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search products...">
+                        <button class="btn btn-light" type="button"><i class="fas fa-search"></i></button>
+                    </div>
+                    <a href="#" class="btn btn-light ms-2" id="cart-btn">
+                        <i class="fas fa-shopping-cart"></i> <span class="badge bg-danger" id="cart-count">0</span>
+                    </a>
+                    <a href="#" class="btn btn-outline-light ms-2"><i class="fas fa-user"></i> Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Premium Tiles & Sanitary Solutions</h1>
+                    <p class="lead mb-4">Transform your spaces with our exquisite collection of tiles and modern sanitary products.</p>
+                    <a href="#tiles" class="btn btn-primary btn-lg me-2">Explore Tiles</a>
+                    <a href="#sanitary" class="btn btn-outline-primary btn-lg">View Sanitary</a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://i.ibb.co/k26PkWvD/images-36.jpg" alt="Premium Tiles" class="img-fluid rounded shadow-lg animate-float">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Categories Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Shop by Categories</h2>
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <div class="category-card card h-100 border-0 shadow-sm hover-effect">
+                        <img src="https://i.ibb.co/k26PkWvD/images-36.jpg" class="card-img-top" alt="Floor Tiles">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Floor Tiles</h5>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="category-card card h-100 border-0 shadow-sm hover-effect">
+                        <img src="https://i.ibb.co/Qvtr1Tt7/images-38.jpg" class="card-img-top" alt="Wall Tiles">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Wall Tiles</h5>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="category-card card h-100 border-0 shadow-sm hover-effect">
+                        <img src="images/bathroom-fixtures.jpg" class="card-img-top" alt="Bathroom Fixtures">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Bathroom Fixtures</h5>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="category-card card h-100 border-0 shadow-sm hover-effect">
+                        <img src="images/sanitary-ware.jpg" class="card-img-top" alt="Sanitary Ware">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Sanitary Ware</h5>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Tiles Section -->
+    <section class="py-5" id="tiles">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Featured Tiles</h2>
+                <a href="#" class="btn btn-outline-primary">View All</a>
+            </div>
+            <div class="row g-4">
+                <!-- Product cards will be added dynamically via JavaScript -->
+                <div id="tiles-container" class="row g-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sanitary Products Section -->
+    <section class="py-5 bg-light" id="sanitary">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Sanitary Products</h2>
+                <a href="#" class="btn btn-outline-primary">View All</a>
+            </div>
+            <div class="row g-4">
+                <!-- Product cards will be added dynamically via JavaScript -->
+                <div id="sanitary-container" class="row g-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bathroom Solutions Section -->
+    <section class="py-5" id="bathroom">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Complete Bathroom Solutions</h2>
+                <a href="#" class="btn btn-outline-primary">View All</a>
+            </div>
+            <div class="row g-4">
+                <!-- Product cards will be added dynamically via JavaScript -->
+                <div id="bathroom-container" class="row g-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Customers Say</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm hover-effect">
+                        <div class="card-body">
+                            <div class="mb-3 text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="card-text">"The quality of tiles I received was exceptional. The website made it easy to visualize how they would look in my home."</p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex align-items-center">
+                                <img src="images/user1.jpg" class="rounded-circle me-3" width="50" alt="User">
+                                <div>
+                                    <h6 class="mb-0">Rahul Sharma</h6>
+                                    <small class="text-muted">Mumbai</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm hover-effect">
+                        <div class="card-body">
+                            <div class="mb-3 text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p class="card-text">"Excellent customer service! They helped me choose the perfect sanitary fittings for my new bathroom renovation."</p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex align-items-center">
+                                <img src="images/user2.jpg" class="rounded-circle me-3" width="50" alt="User">
+                                <div>
+                                    <h6 class="mb-0">Priya Patel</h6>
+                                    <small class="text-muted">Delhi</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm hover-effect">
+                        <div class="card-body">
+                            <div class="mb-3 text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p class="card-text">"Fast delivery and the products were exactly as shown on the website. Will definitely shop here again!"</p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <div class="d-flex align-items-center">
+                                <img src="images/user3.jpg" class="rounded-circle me-3" width="50" alt="User">
+                                <div>
+                                    <h6 class="mb-0">Arjun Mehta</h6>
+                                    <small class="text-muted">Bangalore</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5" id="about">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="images/about-us.jpg" alt="About TileMart" class="img-fluid rounded shadow-lg">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="mb-4">About TileMart</h2>
+                    <p class="lead">Your trusted partner for premium tiles and sanitary solutions since 2010.</p>
+                    <p>At TileMart, we bring you the finest collection of tiles and sanitary products from top brands worldwide. Our mission is to help you create beautiful, functional spaces with high-quality materials and expert guidance.</p>
+                    <p>With over a decade of experience in the industry, we've served thousands of satisfied customers across India. Our team of experts is always ready to assist you in selecting the perfect products for your home or commercial project.</p>
+                    <a href="#" class="btn btn-primary mt-3">Learn More About Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="mb-4">Subscribe to Our Newsletter</h2>
+                    <p class="mb-4">Get updates on new products, exclusive offers, and design inspiration straight to your inbox.</p>
+                    <form class="row g-2 justify-content-center">
+                        <div class="col-md-8">
+                            <input type="email" class="form-control form-control-lg" placeholder="Your email address">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-light btn-lg w-100">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4">TileMart</h5>
+                    <p>Premium tiles and sanitary products for modern living spaces.</p>
+                    <div class="mt-4">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white">Home</a></li>
+                        <li class="mb-2"><a href="#tiles" class="text-white">Tiles</a></li>
+                        <li class="mb-2"><a href="#sanitary" class="text-white">Sanitary Products</a></li>
+                        <li class="mb-2"><a href="#bathroom" class="text-white">Bathroom Solutions</a></li>
+                        <li class="mb-2"><a href="#about" class="text-white">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4">Customer Service</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white">Contact Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">FAQs</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Shipping Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Returns & Refunds</a></li>
+                        <li class="mb-2"><a href="#" class="text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4">Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Tile Street, Mumbai, India</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> +91 9876543210</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@tilemart.com</li>
+                        <li class="mb-2"><i class="fas fa-clock me-2"></i> Mon-Sat: 9:00 AM - 7:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 TileMart. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <img src="images/payment-methods.png" alt="Payment Methods" class="img-fluid" style="max-height: 30px;">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalTitle">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner" id="productCarouselInner">
+                                    <!-- Carousel items will be added dynamically -->
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3 id="modalProductName"></h3>
+                            <div class="mb-3">
+                                <span class="text-warning">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </span>
+                                <span class="ms-2">(42 reviews)</span>
+                            </div>
+                            <h4 class="mb-3" id="modalProductPrice"></h4>
+                            <p id="modalProductDescription" class="text-muted mb-4"></p>
+                            <div class="mb-4">
+                                <h6>Available Colors</h6>
+                                <div class="color-options d-flex mt-2" id="colorOptions">
+                                    <!-- Color options will be added dynamically -->
+                           </div>
+                            </div>
+                            <div class="mb-4">
+                                <h6>Available Sizes</h6>
+                                <div class="size-options d-flex mt-2" id="sizeOptions">
+                                    <!-- Size options will be added dynamically -->
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="input-group me-3" style="width: 130px;">
+                                    <button class="btn btn-outline-secondary" type="button" id="decrementQty">-</button>
+                                    <input type="text" class="form-control text-center" value="1" id="productQty">
+                                    <button class="btn btn-outline-secondary" type="button" id="incrementQty">+</button>
+                                </div>
+                                <button class="btn btn-primary flex-grow-1" id="addToCartBtn">
+                                    <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                                </button>
+                            </div>
+                            <div class="d-flex">
+                                <button class="btn btn-outline-secondary me-2">
+                                    <i class="fas fa-heart me-2"></i>Wishlist
+                                </button>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="fas fa-share-alt me-2"></i>Share
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Sample product data
+    const products = {
+        tiles: [
+            {
+                id: 1,
+                name: "Marble Effect Porcelain Tiles",
+                price: "₹1,250 per box",
+                originalPrice: "₹1,500",
+                discount: "17% off",
+                image: "images/tile1.jpg",
+                images: ["images/tile1.jpg", "images/tile1-alt1.jpg", "images/tile1-alt2.jpg"],
+                colors: ["#f5f5f5", "#d3d3d3", "#a9a9a9"],
+                sizes: ["30x30", "60x60", "60x120"],
+                description: "Premium porcelain tiles with realistic marble effect. Perfect for living rooms, bedrooms, and hallways. Each box covers 1.44 sq.m.",
+                isNew: true,
+                rating: 4.5
+            },
+            {
+                id: 2,
+                name: "Wooden Look Ceramic Tiles",
+                price: "₹950 per box",
+                originalPrice: "₹1,100",
+                discount: "14% off",
+                image: "images/tile2.jpg",
+                images: ["images/tile2.jpg", "images/tile2-alt1.jpg", "images/tile2-alt2.jpg"],
+                colors: ["#8B4513", "#A0522D", "#CD853F"],
+                sizes: ["15x60", "20x120"],
+                description: "Ceramic tiles with authentic wooden look. Ideal for creating warm, natural interiors. Each box covers 1.08 sq.m.",
+                isNew: false,
+                rating: 4.2
+            },
+            {
+                id: 3,
+                name: "Geometric Pattern Cement Tiles",
+                price: "₹1,800 per box",
+                originalPrice: "₹2,000",
+                discount: "10% off",
+                image: "images/tile3.jpg",
+                images: ["images/tile3.jpg", "images/tile3-alt1.jpg", "images/tile3-alt2.jpg"],
+                colors: ["#000000", "#FFFFFF", "#FF0000", "#0000FF"],
+                sizes: ["20x20", "30x30"],
+                description: "Handmade cement tiles with intricate geometric patterns. Adds character to any space. Each box covers 1 sq.m.",
+                isNew: true,
+                rating: 4.7
+            },
+            {
+                id: 4,
+                name: "Subway Glossy Wall Tiles",
+                price: "₹650 per box",
+                originalPrice: "₹750",
+                discount: "13% off",
+                image: "images/tile4.jpg",
+                images: ["images/tile4.jpg", "images/tile4-alt1.jpg", "images/tile4-alt2.jpg"],
+                colors: ["#FFFFFF", "#F5F5F5", "#FFFACD"],
+                sizes: ["7.5x15", "10x20"],
+                description: "Classic subway tiles with glossy finish. Perfect for kitchens and bathrooms. Each box covers 1.1 sq.m.",
+                isNew: false,
+                rating: 4.3
+            }
+        ],
+        sanitary: [
+            {
+                id: 5,
+                name: "Modern Wall-Hung WC",
+                price: "₹12,500",
+                originalPrice: "₹14,500",
+                discount: "14% off",
+                image: "images/sanitary1.jpg",
+                images: ["images/sanitary1.jpg", "images/sanitary1-alt1.jpg", "images/sanitary1-alt2.jpg"],
+                colors: ["#FFFFFF", "#F5F5F5"],
+                description: "Contemporary wall-hung WC with soft-close seat. Space-saving design with easy-to-clean surfaces.",
+                isNew: true,
+                rating: 4.6
+            },
+            {
+                id: 6,
+                name: "Sensor Basin Tap",
+                price: "₹8,200",
+                originalPrice: "₹9,500",
+                discount: "14% off",
+                image: "images/sanitary2.jpg",
+                images: ["images/sanitary2.jpg", "images/sanitary2-alt1.jpg", "images/sanitary2-alt2.jpg"],
+                colors: ["#C0C0C0", "#FFD700"],
+                description: "Touch-free sensor tap with adjustable water flow and temperature. Hygienic and water-saving solution.",
+                isNew: false,
+                rating: 4.4
+            },
+            {
+                id: 7,
+                name: "Freestanding Bathtub",
+                price: "₹35,000",
+                originalPrice: "₹39,999",
+                discount: "12% off",
+                image: "images/sanitary3.jpg",
+                images: ["images/sanitary3.jpg", "images/sanitary3-alt1.jpg", "images/sanitary3-alt2.jpg"],
+                colors: ["#FFFFFF", "#F5F5F5"],
+                description: "Luxurious freestanding bathtub made from high-quality acrylic. Ergonomic design for ultimate comfort.",
+                isNew: true,
+                rating: 4.8
+            },
+            {
+                id: 8,
+                name: "Shower Panel System",
+                price: "₹22,500",
+                originalPrice: "₹25,000",
+                discount: "10% off",
+                image: "images/sanitary4.jpg",
+                images: ["images/sanitary4.jpg", "images/sanitary4-alt1.jpg", "images/sanitary4-alt2.jpg"],
+                colors: ["#C0C0C0", "#000000"],
+                description: "Multi-function shower panel with overhead rain shower, hand shower, and body jets. Thermostatic control for safety.",
+                isNew: false,
+                rating: 4.5
+            }
+        ],
+        bathroom: [
+            {
+                id: 9,
+                name: "Complete Bathroom Set",
+                price: "₹65,000",
+                originalPrice: "₹72,000",
+                discount: "10% off",
+                image: "images/bathroom1.jpg",
+                images: ["images/bathroom1.jpg", "images/bathroom1-alt1.jpg", "images/bathroom1-alt2.jpg"],
+                colors: ["#FFFFFF", "#F5F5F5"],
+                description: "Complete modern bathroom set including WC, basin, faucet, shower, and accessories. Contemporary design with premium finishes.",
+                isNew: true,
+                rating: 4.7
+            },
+            {
+                id: 10,
+                name: "Vanity Unit with Basin",
+                price: "₹28,500",
+                originalPrice: "₹32,000",
+                discount: "11% off",
+                image: "images/bathroom2.jpg",
+                images: ["images/bathroom2.jpg", "images/bathroom2-alt1.jpg", "images/bathroom2-alt2.jpg"],
+                colors: ["#8B4513", "#000000", "#FFFFFF"],
+                description: "Stylish vanity unit with integrated ceramic basin and ample storage space. Available in various finishes.",
+                isNew: false,
+                rating: 4.3
+            },
+            {
+                id: 11,
+                name: "Bathroom Accessory Set",
+                price: "₹7,500",
+                originalPrice: "₹8,500",
+                discount: "12% off",
+                image: "images/bathroom3.jpg",
+                images: ["images/bathroom3.jpg", "images/bathroom3-alt1.jpg", "images/bathroom3-alt2.jpg"],
+                colors: ["#C0C0C0", "#FFD700", "#000000"],
+                description: "Coordinated bathroom accessory set including towel rail, robe hook, toilet paper holder, and more.",
+                isNew: true,
+                rating: 4.2
+            },
+            {
+                id: 12,
+                name: "Walk-in Shower Enclosure",
+                price: "₹42,000",
+                originalPrice: "₹46,000",
+                discount: "9% off",
+                image: "images/bathroom4.jpg",
+                images: ["images/bathroom4.jpg", "images/bathroom4-alt1.jpg", "images/bathroom4-alt2.jpg"],
+                colors: ["#C0C0C0", "#000000"],
+                description: "Frameless walk-in shower enclosure with tempered glass and minimalistic design. Creates a spacious showering area.",
+                isNew: false,
+                rating: 4.6
+            }
+        ]
+    };
+
+    // Cart functionality
+    let cart = [];
+    const cartCount = document.getElementById('cart-count');
+    const cartBtn = document.getElementById('cart-btn');
+
+    // Render products
+    function renderProducts(products, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+        
+        products.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.className = 'col-md-3 col-6 mb-4';
+            productCard.innerHTML = `
+                <div class="card product-card h-100">
+                    ${product.isNew ? '<span class="badge badge-new">NEW</span>' : ''}
+                    ${product.discount ? `<span class="badge badge-discount">${product.discount}</span>` : ''}
+                    <img src="${product.image}" class="card-img-top product-img" alt="${product.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.name}</h5>
+                        <div class="mb-2">
+                            <span class="fw-bold">${product.price}</span>
+                            ${product.originalPrice ? `<span class="text-decoration-line-through text-muted ms-2">${product.originalPrice}</span>` : ''}
+                        </div>
+                        <div class="mb-3 text-warning">
+                            ${renderRatingStars(product.rating)}
+                            <small class="text-muted">(${Math.floor(Math.random() * 100) + 1})</small>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <div class="action-btn" data-product-id="${product.id}" data-category="${containerId.replace('-container', '')}">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="action-btn" onclick="addToCart(${product.id}, '${containerId.replace('-container', '')}')">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="action-btn">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(productCard);
+        });
+
+        // Add event listeners to view buttons
+        document.querySelectorAll('.action-btn .fa-eye').forEach(btn => {
+            btn.closest('.action-btn').addEventListener('click', function() {
+                const productId = parseInt(this.getAttribute('data-product-id'));
+                const category = this.getAttribute('data-category');
+                const product = products[category].find(p => p.id === productId);
+                openProductModal(product);
+            });
+        });
+    }
+
+    // Render rating stars
+    function renderRatingStars(rating) {
+        let stars = '';
+        const fullStars = Math.floor(rating);
+        const hasHalfStar = rating % 1 >= 0.5;
+        
+        for (let i = 0; i < fullStars; i++) {
+            stars += '<i class="fas fa-star"></i>';
+        }
+        
+        if (hasHalfStar) {
+            stars += '<i class="fas fa-star-half-alt"></i>';
+        }
+        
+        const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+        for (let i = 0; i < emptyStars; i++) {
+            stars += '<i class="far fa-star"></i>';
+        }
+        
+        return stars;
+    }
+
+    // Open product modal
+    function openProductModal(product) {
+        document.getElementById('modalProductName').textContent = product.name;
+        document.getElementById('modalProductPrice').textContent = product.price;
+        document.getElementById('modalProductDescription').textContent = product.description;
+        document.getElementById('productModalTitle').textContent = product.name;
+        
+        // Set up carousel
+        const carouselInner = document.getElementById('productCarouselInner');
+        carouselInner.innerHTML = '';
+        product.images.forEach((image, index) => {
+            const item = document.createElement('div');
+            item.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+            item.innerHTML = `<img src="${image}" class="d-block w-100" alt="${product.name}">`;
+            carouselInner.appendChild(item);
+        });
+        
+        // Set up color options
+        const colorOptions = document.getElementById('colorOptions');
+        colorOptions.innerHTML = '';
+        product.colors.forEach(color => {
+            const colorOption = document.createElement('div');
+            colorOption.className = 'color-option';
+            colorOption.style.backgroundColor = color;
+            colorOption.addEventListener('click', function() {
+                document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+            });
+            colorOptions.appendChild(colorOption);
+        });
+        
+        // Set up size options if available
+        const sizeOptions = document.getElementById('sizeOptions');
+        sizeOptions.innerHTML = '';
+        if (product.sizes) {
+            product.sizes.forEach(size => {
+                const sizeOption = document.createElement('div');
+                sizeOption.className = 'size-option';
+                sizeOption.textContent = size;
+                sizeOption.addEventListener('click', function() {
+                    document.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
+                sizeOptions.appendChild(sizeOption);
+            });
+        }
+        
+        // Set up add to cart button
+        document.getElementById('addToCartBtn').onclick = function() {
+            const quantity = parseInt(document.getElementById('productQty').value);
+            addToCart(product.id, Object.keys(products).find(key => products[key].some(p => p.id === product.id)), quantity);
+            const modal = bootstrap.Modal.getInstance(document.getElementById('productModal'));
+            modal.hide();
+        };
+        
+        // Initialize modal
+        const productModal = new bootstrap.Modal(document.getElementById('productModal'));
+        productModal.show();
+    }
+
+    // Add to cart function
+    function addToCart(productId, category, quantity = 1) {
+        const product = products[category].find(p => p.id === productId);
+        const existingItem = cart.find(item => item.id === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({
+                ...product,
+                quantity: quantity
+            });
+        }
+        
+        updateCartCount();
+        showAlert('success', `${product.name} added to cart!`);
+    }
+
+    // Update cart count
+    function updateCartCount() {
+        const count = cart.reduce((total, item) => total + item.quantity, 0);
+        cartCount.textContent = count;
+    }
+
+    // Show alert
+    function showAlert(type, message) {
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type} position-fixed top-0 end-0 m-3`;
+        alert.style.zIndex = '1100';
+        alert.textContent = message;
+        document.body.appendChild(alert);
+        
+        setTimeout(() => {
+            alert.classList.add('fade');
+            setTimeout(() => alert.remove(), 300);
+        }, 3000);
+    }
+
+    // Quantity controls
+    document.getElementById('incrementQty').addEventListener('click', function() {
+        const qtyInput = document.getElementById('productQty');
+        qtyInput.value = parseInt(qtyInput.value) + 1;
+    });
+    
+    document.getElementById('decrementQty').addEventListener('click', function() {
+        const qtyInput = document.getElementById('productQty');
+        if (parseInt(qtyInput.value) > 1) {
+            qtyInput.value = parseInt(qtyInput.value) - 1;
+        }
+    });
+
+    // Initialize product displays
+    renderProducts(products.tiles, 'tiles-container');
+    renderProducts(products.sanitary, 'sanitary-container');
+    renderProducts(products.bathroom, 'bathroom-container');
+
+    // Cart button functionality
+    cartBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        // In a complete implementation, this would open a cart modal or page
+        showAlert('info', 'Cart functionality will be implemented next.');
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+
+// Make addToCart available globally for onclick attributes
+function addToCart(productId, category, quantity = 1) {
+    document.dispatchEvent(new CustomEvent('addToCart', {
+        detail: { productId, category, quantity }
+    }));
+}
+    </script>
+</body>
+</html>
